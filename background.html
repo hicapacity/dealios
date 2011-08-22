@@ -1,0 +1,152 @@
+<html>
+  <head>
+  <script src="fancy-options/lib/store.js"></script>
+  <script>
+
+    // Global settings
+    var settings = null;
+    var deal_to_link = [];
+    
+    // TODO: Probably should make a func out of this
+    var city_feed_objs = [
+        {
+            'city': 'honolulu',
+            'city_display': 'Honolulu, HI',
+            'feeds': [
+                {'title': 'Groupon', 'url': 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://feeds.feedburner.com/grouponhonolulu'},
+                {'title': 'Living Social', 'url': 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://livingsocial.com/cities/82-honolulu.atom'},
+                {'title': 'Hot Deals Hawaii', 'url': 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://hotdealshawaii.com/rss/honolulu'},
+             ]
+        },
+        {
+            'city': 'chicago',
+            'city_display': 'Chicago, IL',
+            'feeds': [
+                {'title': 'Groupon', 'url': 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://feeds.feedburner.com/groupon'},
+             ]
+        },
+    ];
+    
+    // Initialize
+    init();
+    run_background();
+    setInterval("run_background()", 3600000);
+    
+    function init() {
+        var city_key = 'honolulu';
+        if (settings != null) {
+          var city_key = settings.get('dealios-location');
+        }       
+        settings = new Store("settings", {'dealios-location': city_key});
+    };
+
+    function get_user_city_feed_obj() {
+        var city_key = settings.get('dealios-location');
+        for (feed in city_feed_objs) {
+            if (city_key == city_feed_objs[feed]['city']) {
+                return city_feed_objs[feed];
+            }
+        }
+        return null;
+    };
+
+    function crawl_json_feed(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() 
+        {
+            if (xhr.readyState == 4)
+            {
+                if (xhr.status == 200) 
+                {
+                    var json_response = JSON.parse(xhr.responseText);
+                    callback(json_response);
+                } 
+                else 
+                {
+                    callback(null);
+                }
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+    };
+
+    function add_deals_to_element(element)
+    {   
+      for(deal_source in window.localStorage) {
+        if(deal_source != 'store.settings.dealios-location'){
+          var title = document.createElement('h3');
+          var title_text = document.createTextNode(deal_source);
+          title.appendChild(title_text);
+          element.appendChild(title);
+      
+          var ul = document.createElement('ul');
+          var deal_titles = JSON.parse(window.localStorage.getItem(deal_source));
+          for (key in deal_titles) {
+              var title = deal_titles[key];
+              var li = document.createElement('li');
+              
+              var link = document.createElement('a');
+              link.setAttribute('href', deal_to_link[title]);
+              link.setAttribute('target', '_blank');
+              
+              var text = document.createTextNode(title);
+              
+              link.appendChild(text);
+              li.appendChild(link);
+              ul.appendChild(li);
+         }
+         element.appendChild(ul);
+        }
+      }
+    };
+    
+    function run_background() 
+    {
+      var user_city_feed_obj = get_user_city_feed_obj();
+      var city_display = user_city_feed_obj.city_display;
+      var feeds = user_city_feed_obj.feeds;
+
+      for (feed in feeds) {
+        var deal_source = feeds[feed]['title'];
+        var url = feeds[feed]['url']; 
+        
+        // Closure
+        (function(deal_source, url) {
+          crawl_json_feed(url,
+              function(response) { 
+                  var entries = response.responseData.feed.entries;
+                  store_deal(deal_source, entries);
+              }
+          );
+        })(deal_source, url);
+      }
+    }
+    
+    function store_deal(deal_source, entries)
+    {
+      var deal_titles = JSON.parse(localStorage.getItem(deal_source));
+      if (deal_titles == null) {
+        var deal_titles = [];
+      }
+      
+      var current_deal_titles = [];
+      for (index in entries) {
+          var title = entries[index].title;
+          var link = entries[index].link;
+          
+          // If the deal doesn't exist, update the browser icon.
+          if (deal_titles.indexOf(title) == -1) {
+            chrome.browserAction.setIcon({"path" : "images/dealios22.png"});
+          }
+          
+          current_deal_titles.push(title);
+          deal_to_link[title] = link;
+      }
+      window.localStorage.setItem(deal_source, JSON.stringify(current_deal_titles));
+    };    
+  </script>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+body {overflow: hidden;}
+
+h1{ font-family: "Lucida Sans", helvetica, sans-serif; text-transform: uppercase; font-size: 22px; color: #95d330; font-weight: bold; text-shadow: 0px 0px 1px rgba(0,0,0,0); margin-top: 5px; margin-bottom: 8px;}
+
+#deals { width:400px; border-top: 1px solid #eee; padding-top: 8px;}
+ul{position: relative; border-radius: 4px; border: 1px solid #d0d0d0; padding: 0px; box-shadow: 0px 0px 5px #ccc; list-style-type: none; margin: 0; margin-left: 4px; margin-bottom: 20px;}
+ul:before{content: ""; position: absolute; top: -13px; left: 18px; width: 18px; height: 13px; background-image: url(data:image/gif;base64,R0lGODlhEgANANUAAP////7+/v39/fz8/Pv7+/r6+vn5+fj4+Pf39/b29vX19fPz8/Ly8vHx8fDw8O/v7+3t7ezs7Onp6ebm5uXl5eTk5OLi4uDg4N/f393d3dvb29ra2tfX19bW1tXV1dLS0tDQ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAEgANAAAGikCAEBAoCo6CYmDINA4KBkNhkFwyiQLCIVGpJA6E5DWQRTA0EomGgQhbiYHBgZHJFOuMw6AIHxgWFh4DQgMeFgsGe0YFChEdCUwJHREKBUkCBQkPHBBXABAcDwmWAwgNGxeeQhcbDQilDRgcAqoAAhwYrg4THwa1QgYfE7sdDr9DDh0TIBTHTBQgQQA7); }
+#deals > h3 { font-family: "Lucida Sans", helvetica, sans-serif; text-transform: uppercase; font-size: 14px; color: #757575; font-weight: bold; margin-top: 5px; margin-bottom: 10px;text-shadow: 0px 0px 1px rgba(0,0,0,0);}
+#deals li { padding: 6px 5px 6px 29px; margin: 0; border-bottom: 1px solid #ebebeb; position: relative;}
+#deals li:before { content: ""; position: absolute; width: 4px; height: 4px; background-color: #3f463e; border-radius: 2px; top: 15px; left: 13px; }
+#deals li a { text-decoration: none; font-family: helvetica, sans-serif; color: #4d83a7; font-weight: bold; font-size: 13px; text-shadow: 0px 0px 1px rgba(0,0,0,0);}
+li:nth-child(even){background-color: #f9f9f9;}
