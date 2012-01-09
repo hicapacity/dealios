@@ -136,11 +136,10 @@
       for (index in entries) {
           var title = entries[index].title;
           var link = entries[index].link;
-		  var content = entries[index].contentSnippet;
           
 		  if(deal_source == 'Living Social')
 		  {
-			title = content;
+			title = entries[index].contentSnippet;
 		  }
           // If the deal doesn't exist, update the browser icon.
           if (deal_titles.indexOf(title) == -1) {
