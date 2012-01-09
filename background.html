@@ -118,7 +118,7 @@
           crawl_json_feed(url,
               function(response) { 
                   var entries = response.responseData.feed.entries;
-                  store_deal(deal_source, entries);
+                  store_deal(deal_source, entries);				  
               }
           );
         })(deal_source, url);
@@ -136,7 +136,12 @@
       for (index in entries) {
           var title = entries[index].title;
           var link = entries[index].link;
+		  var content = entries[index].contentSnippet;
           
+		  if(deal_source == 'Living Social')
+		  {
+			title = content;
+		  }
           // If the deal doesn't exist, update the browser icon.
           if (deal_titles.indexOf(title) == -1) {
             chrome.browserAction.setIcon({"path" : "images/dealios22.png"});
