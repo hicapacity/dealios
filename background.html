@@ -6,6 +6,7 @@
     // Global settings
     var settings = null;
     var deal_to_link = [];
+	var new_deals = [];
     
     // TODO: Probably should make a func out of this
     var city_feed_objs = [
@@ -97,6 +98,21 @@
               link.appendChild(text);
               li.appendChild(link);
               ul.appendChild(li);
+			  
+			  var is_new = false;
+			  for(index in new_deals){
+				if(new_deals[index] == title){
+					is_new = true;
+					break;
+				}
+			  }
+			  
+			  if(is_new){
+				link.setAttribute('class', 'newdeal');
+			  }
+			  else{
+				link.setAttribute('class', 'olddeal');
+				}
          }
          element.appendChild(ul);
         }
@@ -144,6 +160,7 @@
           // If the deal doesn't exist, update the browser icon.
           if (deal_titles.indexOf(title) == -1) {
             chrome.browserAction.setIcon({"path" : "images/dealios22.png"});
+			new_deals.push(title);
           }
           
           current_deal_titles.push(title);
@@ -151,6 +168,10 @@
       }
       window.localStorage.setItem(deal_source, JSON.stringify(current_deal_titles));
     };    
+	
+	function clear_new(){
+		new_deals = [];
+	};
   </script>
   </head>
   <body>
