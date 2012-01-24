@@ -8,5 +8,8 @@ ul:before{content: ""; position: absolute; top: -13px; left: 18px; width: 18px; 
 #deals > h3 { font-family: "Lucida Sans", helvetica, sans-serif; text-transform: uppercase; font-size: 14px; color: #757575; font-weight: bold; margin-top: 5px; margin-bottom: 10px;text-shadow: 0px 0px 1px rgba(0,0,0,0);}
 #deals li { padding: 6px 5px 6px 29px; margin: 0; border-bottom: 1px solid #ebebeb; position: relative;}
 #deals li:before { content: ""; position: absolute; width: 4px; height: 4px; background-color: #3f463e; border-radius: 2px; top: 15px; left: 13px; }
-#deals li a { text-decoration: none; font-family: helvetica, sans-serif; color: #4d83a7; font-weight: bold; font-size: 13px; text-shadow: 0px 0px 1px rgba(0,0,0,0);}
+#deals li a { text-decoration: none; font-family: helvetica, sans-serif;  font-weight: bold; font-size: 13px; text-shadow: 0px 0px 1px rgba(0,0,0,0);}
+
+.olddeal{color: #4d83a7;}
+.newdeal{color: #95d330;}
 li:nth-child(even){background-color: #f9f9f9;}
