@@ -1,6 +1,6 @@
 {
   "name": "Dealios",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Extension to find all the Groupon-like deals.",
   "background_page": "background.html",
   "options_page": "fancy-options/index.html",
