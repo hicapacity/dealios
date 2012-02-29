@@ -25,6 +25,10 @@ this.manifest = {
                         "value": "honolulu",
                         "text": "Honolulu, HI",
                     },
+                    {
+                        "value": "dc",
+                        "text": "Washington, DC",
+                    }
                 ],
             },
         },
